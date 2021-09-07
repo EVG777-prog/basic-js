@@ -1,21 +1,13 @@
-import { NotImplementedError } from '../extensions/index.js';
+const arr = ['Matt', 'Ann', 'Dmitry', 'Max'];
 
-/**
- * Create a repeating string based on the given parameters
- *  
- * @param {String} str string to repeat
- * @param {Object} options options object 
- * @return {String} repeating string
- * 
- *
- * @example
- * 
- * repeater('STRING', { repeatTimes: 3, separator: '**', 
- * addition: 'PLUS', additionRepeatTimes: 3, additionSeparator: '00' })
- * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
- *
- */
-export default function repeater(str, options) {
+const objWithSpecificCoercion = {
+    [Symbol.toPrimitive]: hint => hint !== 'number' ? 'STRING_OR_DEFAULT' : 'NUMBER'
+};
+
+console.log(repeater(null, { repeatTimes: 3, separator: '??? ', addition: null, additionRepeatTimes: 3, additionSeparator: '!!!' }));
+console.log('nullnull!!!null!!!null??? nullnull!!!null!!!null??? nullnull!!!null!!!null');
+
+function repeater(str, options) {
     // console.log(str);
     // console.log(options);
 
@@ -23,7 +15,6 @@ export default function repeater(str, options) {
     let addStr = '';
     if (options.additionRepeatTimes == undefined) options.additionRepeatTimes = 1;
     if (options.repeatTimes == undefined) options.repeatTimes = 1;
-    if (options.addition === undefined) options.addition = '';
     // if (!options.additionRepeatTimes) {
     // console.log(+options.additionRepeatTimes);
     for (let x = 1; x <= options.additionRepeatTimes; x++) {
@@ -38,3 +29,5 @@ export default function repeater(str, options) {
     // console.log(`Результат = ${result}`);
     return result;
 }
+
+// console.log(repeater('STRING', { repeatTimes: 3, separator: '**', addition: 'PLUS', additionRepeatTimes: 2, additionSeparator: '00' }));
