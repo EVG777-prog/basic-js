@@ -13,8 +13,29 @@ import { NotImplementedError } from '../extensions/index.js';
  *
  */
 export default class DepthCalculator {
-  calculateDepth(/* arr */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+
+
+    calculateDepth(arr) {
+        // throw new NotImplementedError('Not implemented');
+        // remove line with error and write your code here
+        if (!Array.isArray(arr)) return 0;
+
+        // console.log(`Текущий массив:`);
+        // console.log(arr);
+        let result = 0;
+        result++;
+        // console.log(`Результат = ${result}`);
+        for (let i = 0; i < arr.length; i++) {
+            if (Array.isArray(arr[i])) {
+                // console.log(`Arr[i] - это массив!`);
+                // console.log(arr[i]);
+                // console.log(`Выравниваем!`);
+                arr = arr.flat();
+                result += this.calculateDepth(arr);
+                break;
+            }
+        }
+
+        return result;
+    }
 }
