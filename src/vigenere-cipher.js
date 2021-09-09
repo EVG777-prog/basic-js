@@ -20,12 +20,38 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  */
 export default class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+    constructor(direct = true) {
+        this.direct = direct;
+    }
+    encrypt(text, word) {
+        if (text == undefined || word == undefined) throw new Error('Incorrect arguments!');
+        const abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let x = 0;
+        let result = '';
+        for (let i = 0; i < text.length; i++) {
+            if (abc.includes(text.toUpperCase()[i])) {
+                result += abc[((abc.indexOf(text.toUpperCase()[i]) + abc.indexOf(word.toUpperCase()[x % word.length]) + 26) % 26)];
+                x++;
+            } else {
+                result += text[i];
+            }
+        }
+        return this.direct ? result : result.split('').reverse().join('');
+
+    }
+    decrypt(text, word) {
+        if (text == undefined || word == undefined) throw new Error('Incorrect arguments!');
+        const abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let x = 0;
+        let result = '';
+        for (let i = 0; i < text.length; i++) {
+            if (abc.includes(text.toUpperCase()[i])) {
+                result += abc[((abc.indexOf(text.toUpperCase()[i]) - abc.indexOf(word.toUpperCase()[x % word.length]) + 26) % 26)];
+                x++;
+            } else {
+                result += text[i];
+            }
+        }
+        return this.direct ? result : result.split('').reverse().join('');
+    }
 }
