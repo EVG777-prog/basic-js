@@ -15,7 +15,7 @@ import { NotImplementedError } from '../extensions/index.js';
  *
  */
 export default function isMAC48Address(n) {
-    const reg = new RegExp(/[0-9]|[A-F]|-/g);
+    const reg = new RegExp('^([0-9]|[A-F]|-)+$');
     console.log(reg.test(n));
     if (!reg.test(n) || n.length != 17) return false;
 

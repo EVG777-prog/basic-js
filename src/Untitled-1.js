@@ -1,14 +1,17 @@
-function getSeason(date) {
-    if (date == undefined) throw new Error('Unable to determine the time of year!');
-    if (typeof date != 'object' || Object.keys(date).length > 0) throw new Error('Invalid date!');
-    const seasons = ['winter', 'winter', 'spring', 'spring', 'spring', 'summer', 'summer', 'summer', 'autumn', 'autumn', 'autumn', 'winter'];
-    const month = date.getMonth();
-    return seasons[month];
+function isMAC48Address(n) {
+    const reg = new RegExp('^([0-9]|[A-F]|-)+$');
+    console.log(reg.test(n));
+    if (!reg.test(n) || n.length != 17) return false;
 
+    const arr = n.split('-');
+    if (arr.length != 6) return false;
+
+    for (let i of arr) {
+        if (i.length != 2) return false;
+    }
+
+    return true;
 }
 
 
-const date = new Date(1900, 0, 22, 23, 45, 11, 500);
-
-console.log(Object.keys(date).length);
-console.log(getSeason())
+console.log(isMAC48Address('G0-00-00-00-00-00'))
